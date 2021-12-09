@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body style="padding: 2rem; margin-bottom: 4rem;">
+    <h1>We-Guild Website - animation links</h1>
+
+    <h3>about links</h3>
+    <script>
+        const aboutLinks = ['Button - PRINCIPLES', 'MANIFESTO 3x networks BEFORE', 'NUMBER 2', 'NUMBER 5', 'TEAM - BIG flat',
+            'MANIFESTO 3x networks AFTER', 'MANIFESTO 3x networks BEFORE - small', 'NUMBER 3', 'NUMBER 6', 'TEAM - flat',
+            'MANIFESTO 3x networks AFTER - small', 'NUMBER 1', 'NUMBER 4', 'NUMBER 7']
+
+        aboutLinks.map((link) => {
+            let elem = document.createElement("a")
+            elem.id = link
+            elem.innerHTML = `<a href="about/${link}"" style="display: block;"  >${link}</a>`
+            document.body.appendChild(elem)
+        })
+
+    </script>
+
+    <h3>contact links</h3>
+    <script>
+        const contactLinks = ['2 - horizontal 6 network _ network CONTACT DIVIDER - desktop', 'network _ network CONTACT DIVIDER - mobile',
+            'contact us - blue', 'network _ network CONTACT DIVIDER - tablet']
+
+        contactLinks.map((link) => {
+            let elem = document.createElement("a")
+            elem.id = link
+            elem.innerHTML = `<a href="contact/${link}"" style="display: block;"  >${link}</a>`
+            document.body.appendChild(elem)
+        })
+
+    </script>
+
+    <h3>home links</h3>
+    <script>
+        const homeLinks = ['3 sizes', 'Button - TURQUOISE', 'Homepage - timeline DESKTOP', 'loading bar - DESKTOP', 'subscribe',
+            'Button - BLUE', 'Homepage - network DESKTOP', 'Homepage - timeline MOBILE', 'loading bar - MOBILE',
+            'Button - GREEN', 'Homepage - network MOBILE', 'HOW IT WORKS', 'small wobbly network']
+
+        homeLinks.map((link) => {
+            let elem = document.createElement("a")
+            elem.id = link
+            elem.innerHTML = `<a href="home/${link}"" style="display: block;"  >${link}</a>`
+            document.body.appendChild(elem)
+        })
+
+    </script>
+
+    <h3>how it works links</h3>
+    <script>
+        const hiwLinks = ['horizontal 6 network _ How it works BIG', 'How it works - small 11', 'How it works - small 15', 'How it works - small 5', 'How it works - small 9',
+            'horizontal 6 network _ How it works MEDIUM', 'How it works - small 12', 'How it works - small 2', 'How it works - small 6',
+            'How it works - small 1', 'How it works - small 13', 'How it works - small 3', 'How it works - small 7',
+            'How it works - small 10', 'How it works - small 14', 'How it works - small 4', 'How it works - small 8']
+
+        hiwLinks.map((link) => {
+            let elem = document.createElement("a")
+            elem.id = link
+            elem.innerHTML = `<a href="howItWorks/${link}"" style="display: block;"  >${link}</a>`
+            document.body.appendChild(elem)
+        })
+
+    </script>
+
+    <h3>Team links</h3>
+    <script>
+        let elem = document.createElement("a")
+        elem.id = 'TEAM'
+        elem.innerHTML = `<a href="team/TEAM"" style="display: block;"  >TEAM</a>`
+        document.body.appendChild(elem)
+
+
+    </script>
+
+
+</body>
+
+</html>
