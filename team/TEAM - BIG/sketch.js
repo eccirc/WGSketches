@@ -5,16 +5,16 @@ let dave;
 
 let amaticFont;
 
-const transformer = 0.6;
-const sideShifter = -30;
+const transformer = 1;
 const sizeOfBalls = transformer * 60;
+const sideShifter = -70;
 
 const sizeOfMovement = 6;
 
 // array  of particle objects
 const particlesArray = [
   {
-    x: 250,
+    x: 220,
     y: 65,
     pulsing: 3,
     xPulser: 0,
@@ -24,7 +24,7 @@ const particlesArray = [
   },
   {
     x: 500,
-    y: 70,
+    y: 100,
     pulsing: 3,
     xPulser: 0,
     yPulser: 0,
@@ -33,7 +33,7 @@ const particlesArray = [
   },
   {
     x: 375,
-    y: 85,
+    y: 215,
     pulsing: 2,
     xPulser: 0,
     yPulser: 0,
@@ -42,7 +42,7 @@ const particlesArray = [
   },
   {
     x: 120,
-    y: 80,
+    y: 180,
     pulsing: 1.5,
     xPulser: 0,
     yPulser: 0,
@@ -52,12 +52,11 @@ const particlesArray = [
 
 ]
 
-
 var main = (p) => {
 
   p.preload = () => {
 
-    amaticFont = p.loadFont('./../../AmaticSC-Regular.ttf');
+    amaticFont = p.loadFont('AmaticSC-Regular.ttf');
     marie = p.loadImage('pics/marie-small.png');
     guillermo = p.loadImage('pics/guillermo-small.png');
     zahida = p.loadImage('pics/zahida-small.png');
@@ -66,7 +65,7 @@ var main = (p) => {
 
   p.setup = () => {
     p.frameRate(60)
-    p.createCanvas(300, 95);
+    p.createCanvas(485, 300);
   }
 
   p.draw = () => {
@@ -84,23 +83,19 @@ var main = (p) => {
     //   rotate(PI * -0.02);
 
     p.stroke(100)
-
+    // LINKS
     linkBalls(0, 1, "brown", p);
     linkBalls(0, 2, "brown", p);
-    linkBalls(0, 3, "brown", p);
-    p.noStroke();
-    createBall(particlesArray[0], p)
-
     linkBalls(1, 2, "brown", p);
     linkBalls(2, 3, "brown", p);
+    linkBalls(0, 3, "brown", p);
     linkBalls(1, 3, "brown", p);
 
-    p.noStroke()
-    createBall(particlesArray[1], p)
-    createBall(particlesArray[2], p)
-    createBall(particlesArray[3], p)
-
-
+    p.noStroke();
+    // BALLS
+    particlesArray.forEach(element => {
+      createBall(element, p)
+    })
 
     // NAMES
     p.fill(10, 10, 10);
@@ -200,9 +195,7 @@ var main = (p) => {
     }
     p.noTint();
   }
-
 }
-
 // -=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=-
 function pulsing(p) {
   particlesArray.forEach(element => {
@@ -236,4 +229,4 @@ function createBall(ballObject, p) {
 
 }
 
-var myp5 = new p5(main, 'c1');
+var myP5 = new p5(main, "c1")

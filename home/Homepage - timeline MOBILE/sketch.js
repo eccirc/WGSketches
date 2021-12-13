@@ -77,7 +77,7 @@ var main = (p) => {
     parsingPrivateLedger(signUpWhen, privateLedgers, p);
     p.frameRate(60)
     cnv = p.createCanvas(width * transformer, height * transformer);
-    cnv.doubleClicked(() => doubleClicking(p));
+    cnv.doubleClicked(() => p.doubleClicking());
 
 
 
@@ -324,66 +324,32 @@ var main = (p) => {
       !specificInfoBannerOn ||
       specificInfoBanner === arrayOfTransactions.length - 1
     ) {
-      if (width < height) {
-
-        // drawing the pic only if the now infobanner is not on
-        if (
-          !specificInfoBannerOn ||
-          specificInfoBanner !== arrayOfTransactions.length - 1
-        ) {
-          p.ellipse(
-            (width - 187 * bannerTransformer) * transformer,
-            (94.5) * transformer,
-            (150 * bannerTransformer) * transformer,
-            (150 * bannerTransformer) * transformer
-          );
-        }
-        // writing "Network"
-        p.textAlign(p.CENTER);
-        p.fill(0);
-        p.textFont(amaticFont);
-        p.textSize((48 * bannerTransformer) * transformer);
-        p.text(
-          "Network",
-          (width - 100 * bannerTransformer) * transformer,
-          (330 * bannerTransformer) * transformer
-        );
-      } else {
-        // network glow
-        //         fill (0, arrayOfTransactions[19].colourG,
-        // arrayOfTransactions[19].colourB, 150)
-
-        //         ellipse (((width - 187 + 75) * bannerTransformer) * transformer,
-        //         100 * transformer,
-        //         (130 + (15 * arrayOfTransactions[18].particlePulser)) * transformer,
-        //         (130 + (15 * arrayOfTransactions[18].particlePulser)) * transformer)
-
-        p.fill(250, 216, 140)
-        p.ellipse(
-          ((width - 187 + 75) * bannerTransformer) * transformer,
-          100 * transformer,
-          (150 * bannerTransformer) * transformer,
-          (150 * bannerTransformer) * transformer
-        );
-        p.fill(241, 184, 88)
-        p.ellipse(
-          ((width - 187 + 75) * bannerTransformer) * transformer,
-          100 * transformer,
-          (75 * bannerTransformer) * transformer,
-          (75 * bannerTransformer) * transformer
-        );
-
-        // writing "Network"
-        p.textAlign(p.CENTER);
-        p.fill(0);
-        p.textFont(amaticFont);
-        p.textSize((48 * bannerTransformer) * transformer);
-        p.text(
-          "Network",
-          (width - 100 * bannerTransformer) * transformer,
-          (230 * bannerTransformer) * transformer
-        );
-      }
+      // if (width < height) {    
+      p.fill(250, 216, 140)
+      p.ellipse(
+        (width - 113) * transformer,
+        (100) * transformer,
+        150 * transformer,
+        150 * transformer
+      );
+      p.fill(241, 184, 88)
+      p.ellipse(
+        (width - 113) * transformer,
+        (100) * transformer,
+        75 * transformer,
+        75 * transformer
+      );
+      // }
+      // writing "Network"
+      p.textAlign(p.CENTER);
+      p.fill(0);
+      p.textFont(amaticFont);
+      p.textSize((48 * 1) * transformer);
+      p.text(
+        "Network",
+        (width - 100 * 1) * transformer,
+        (230 * 1) * transformer
+      );
     }
 
     // MIDDLE LINE
@@ -398,33 +364,33 @@ var main = (p) => {
     // rectangle bubbles - when you joined
     p.stroke(150, 150, 150);
     p.fill(241, 184, 88, 100);
-    p.strokeWeight((4 * bannerTransformer) * transformer);
+    p.strokeWeight((4 * 1) * transformer);
 
     p.rect(
-      ((arrayOfTransactions[0].x + (Yorigin - arrayOfTransactions[0].y) * Xdistorter - 120) * bannerTransformer) * transformer,
-      (arrayOfTransactions[0].y2 - 94 * bannerTransformer) * transformer,
-      (200 * bannerTransformer) * transformer,
-      (94 * bannerTransformer) * transformer,
-      (19 * bannerTransformer) * transformer
+      ((arrayOfTransactions[0].x + (Yorigin - arrayOfTransactions[0].y) * Xdistorter - 120) * 1) * transformer,
+      (arrayOfTransactions[0].y2 - 94 * 1) * transformer,
+      (200 * 1) * transformer,
+      (94 * 1) * transformer,
+      (19 * 1) * transformer
     );
 
     // when you 'signed up' bubble text
     p.noStroke();
     p.fill(0);
     p.textFont(amaticFont);
-    p.textSize((40 * bannerTransformer) * transformer);
+    p.textSize((40 * 1) * transformer);
     p.textAlign(p.CENTER);
 
     p.text(
       "You joined WG",
-      ((arrayOfTransactions[0].x + (Yorigin - arrayOfTransactions[0].y) * Xdistorter - 20) * bannerTransformer) * transformer,
-      (arrayOfTransactions[0].y2 - 50 * bannerTransformer) * transformer
+      ((arrayOfTransactions[0].x + (Yorigin - arrayOfTransactions[0].y) * Xdistorter - 20) * 1) * transformer,
+      (arrayOfTransactions[0].y2 - 50 * 1) * transformer
     );
-    p.textSize((30 * bannerTransformer) * transformer);
+    p.textSize((30 * 1) * transformer);
     p.text(
       "On " + dateShortener(arrayOfTransactions[0].when),
-      ((arrayOfTransactions[0].x + (Yorigin - arrayOfTransactions[0].y) * Xdistorter - 20) * bannerTransformer) * transformer,
-      (arrayOfTransactions[0].y2 - 15 * bannerTransformer) * transformer
+      ((arrayOfTransactions[0].x + (Yorigin - arrayOfTransactions[0].y) * Xdistorter - 20) * 1) * transformer,
+      (arrayOfTransactions[0].y2 - 15 * 1) * transformer
     );
 
     // start iterating through all transactions
@@ -737,100 +703,101 @@ var main = (p) => {
   //           (arrayOfTransactions[i].x0 + graphSideMargin - zoomLoc) * zoomAmount;
   //       }
   //     }
-}
+  p.doubleClicking = () => {
 
-function doubleClicking(p) {
+    let clickedOnAtransaction = false;
+    for (let i = 0; i < arrayOfTransactions.length; i++) {
 
-  let clickedOnAtransaction = false;
-  for (let i = 0; i < arrayOfTransactions.length; i++) {
+      if (width < height) {
+        if (p.dist(
+          p.mouseX,
+          p.mouseY,
+          (arrayOfTransactions[i].x + (Yorigin - arrayOfTransactions[i].y) * Xdistorter) * transformer,
+          (p.map(
+            arrayOfTransactions[i].x - graphSideMargin,
+            0,
+            width - graphSideMargin * 2,
+            Yorigin + p.map(0, 0, width - 2 * graphSideMargin, 0, Ydistorter),
+            Yorigin + Ydistorter
+          )) * transformer) < 10) {
+          clickedOnAtransaction = true;
+          zoomLoc = arrayOfTransactions[i].x
+          zoomAmount += 0.1;
 
-    if (width < height) {
-      if (p.dist(
-        p.mouseX,
-        p.mouseY,
-        (arrayOfTransactions[i].x + (Yorigin - arrayOfTransactions[i].y) * Xdistorter) * transformer,
-        (p.map(
-          arrayOfTransactions[i].x - graphSideMargin,
-          0,
-          width - graphSideMargin * 2,
-          Yorigin + p.map(0, 0, width - 2 * graphSideMargin, 0, Ydistorter),
-          Yorigin + Ydistorter
-        )) * transformer) < 10) {
-        clickedOnAtransaction = true;
-        zoomLoc = arrayOfTransactions[i].x
-        zoomAmount += 0.1;
+          for (let j = 0; j < arrayOfTransactions.length; j++) {
+            arrayOfTransactions[j].xTrans =
+              arrayOfTransactions[j].x - ((zoomLoc - arrayOfTransactions[j].x) * zoomAmount * 0.4);
+          }
+        }
+      } else
+      // DESKTOP MODE
+      {
+        if (p.dist(
+          p.mouseX,
+          p.mouseY,
+          (arrayOfTransactions[i].x + (Yorigin - arrayOfTransactions[i].y) * Xdistorter) * transformer,
+          arrayOfTransactions[i].y2 * transformer) < 10 * transformer) {
 
-        for (let j = 0; j < arrayOfTransactions.length; j++) {
-          arrayOfTransactions[j].xTrans =
-            arrayOfTransactions[j].x - ((zoomLoc - arrayOfTransactions[j].x) * zoomAmount * 0.4);
+          clickedOnAtransaction = true;
+          zoomLoc = arrayOfTransactions[i].x
+          zoomAmount += 0.1;
+
+          for (let j = 0; j < arrayOfTransactions.length; j++) {
+            arrayOfTransactions[j].xTrans =
+              arrayOfTransactions[j].x - ((zoomLoc - arrayOfTransactions[j].x) * zoomAmount * 0.4);
+          }
         }
       }
-    } else
-    // DESKTOP MODE
-    {
-      if (p.dist(
-        p.mouseX,
-        p.mouseY,
-        (arrayOfTransactions[i].x + (Yorigin - arrayOfTransactions[i].y) * Xdistorter) * transformer,
-        arrayOfTransactions[i].y2 * transformer) < 10 * transformer) {
+      // resetting the values by double-clicking anywhere else
+      if (i === arrayOfTransactions.length - 1 && !clickedOnAtransaction) {
+        // console.log('here')
+        zoomAmount = 1;
+        sideShifter = -150;
+        finalYshifter = 0;
+        // if (width < height) { maxBalanceAdjuster = 1.3 }
+        // else { maxBalanceAdjuster = 1.3; }
 
-        clickedOnAtransaction = true;
-        zoomLoc = arrayOfTransactions[i].x
-        zoomAmount += 0.1;
-
-        for (let j = 0; j < arrayOfTransactions.length; j++) {
-          arrayOfTransactions[j].xTrans =
-            arrayOfTransactions[j].x - ((zoomLoc - arrayOfTransactions[j].x) * zoomAmount * 0.4);
+        for (let i = 0; i < arrayOfTransactions.length; i++) {
+          arrayOfTransactions[i].xTrans =
+            sideShifter +
+            zoomLoc +
+            (arrayOfTransactions[i].x0 + graphSideMargin - zoomLoc) *
+            zoomAmount;
         }
       }
     }
-    // resetting the values by double-clicking anywhere else
-    if (i === arrayOfTransactions.length - 1 && !clickedOnAtransaction) {
-      // console.log('here')
-      zoomAmount = 1;
-      sideShifter = -150;
-      finalYshifter = 0;
-      // if (width < height) { maxBalanceAdjuster = 1.3 }
-      // else { maxBalanceAdjuster = 1.3; }
+  }
+  // -----------------------------------------------------------------------------
+  p.mousePressed = () => {
+
+    if (specificInfoBannerOn && p.dist(p.mouseX, p.mouseY, (width - 187) * transformer * bannerTransformer, 94.5 * transformer) > 100 * transformer) {
+      specificInfoBannerOn = false;
+      arrayOfTransactions.forEach((element) => {
+        element.particlePulserEnhancer = 1;
+      });
+    }
+
+    if (specificInfoBanner && p.dist(p.mouseX, p.mouseY, (width - 187) * transformer * bannerTransformer, 94.5 * transformer) < 100 * transformer) {
+
+      timeLedgerUserIDnetworkLedger = arrayOfTransactions[specificInfoBanner].fromLedger;
+    }
+
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+
+  p.mouseWheel = (event) => {
+    verticalScroll = event.delta;
+
+    if (zoomAmount > 1)
 
       for (let i = 0; i < arrayOfTransactions.length; i++) {
-        arrayOfTransactions[i].xTrans =
-          sideShifter +
-          zoomLoc +
-          (arrayOfTransactions[i].x0 + graphSideMargin - zoomLoc) *
-          zoomAmount;
+        arrayOfTransactions[i].xTrans += verticalScroll * zoomAmount * 0.5;
       }
-    }
-  }
-}
-// -----------------------------------------------------------------------------
-function mousePressed(p) {
-
-  if (specificInfoBannerOn && p.dist(p.mouseX, p.mouseY, (width - 187) * transformer * bannerTransformer, 94.5 * transformer) > 100 * transformer) {
-    specificInfoBannerOn = false;
-    arrayOfTransactions.forEach((element) => {
-      element.particlePulserEnhancer = 1;
-    });
-  }
-
-  if (specificInfoBanner && p.dist(p.mouseX, p.mouseY, (width - 187) * transformer * bannerTransformer, 94.5 * transformer) < 100 * transformer) {
-
-    timeLedgerUserIDnetworkLedger = arrayOfTransactions[specificInfoBanner].fromLedger;
-  }
+  };
 
 }
 
-// -----------------------------------------------------------------------------------------------------
-
-function mouseWheel(event) {
-  verticalScroll = event.delta;
-
-  if (zoomAmount > 1)
-
-    for (let i = 0; i < arrayOfTransactions.length; i++) {
-      arrayOfTransactions[i].xTrans += verticalScroll * zoomAmount * 0.5;
-    }
-};
 // -----------------------------------------------------------------------------------------------------
 
 
@@ -1533,7 +1500,7 @@ function displayRequestMessage(indexInArrayOfTransactions, p) {
   p.textAlign(p.CENTER)
   if (message.splitMessage2) {
     // if it's longer than 30 characters
-    p.textSize(20)
+    p.textSize(20 * bannerTransformer * transformer)
     p.text(
       `"${message.splitMessage1}`,
       (helpRequestBannerXShifter + 200 * bannerTransformer) * transformer,
@@ -1547,7 +1514,7 @@ function displayRequestMessage(indexInArrayOfTransactions, p) {
   } else {
     // if it's shorter than 25 characters
     p.textAlign(p.CENTER)
-    p.textSize(23)
+    p.textSize(23 * bannerTransformer * transformer)
     p.text(`"${message.splitMessage1}"`,
       (helpRequestBannerXShifter + 200 * bannerTransformer) * transformer,
       (helpRequestBannerYShifter + 84 * bannerTransformer) * transformer

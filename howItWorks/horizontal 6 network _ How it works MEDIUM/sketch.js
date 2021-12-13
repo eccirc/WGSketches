@@ -18,6 +18,7 @@ const indices = false;
 
 const sizeOfMovement = 6;
 
+
 let amaticFont;
 let josefinsFont;
 let cabinSketchFont;
@@ -408,6 +409,33 @@ var main = (p) => {
     p.frameRate(60)
     p.createCanvas(canvasWidth * transformer, canvasHeight * transformer);
   }
+  p.mouseClicked = () => {
+    particlesArray.forEach(element => {
+      if (p.dist(p.mouseX, p.mouseY, element.xMoving, element.yMoving) < sizeOfBalls * element.ballSize * transformer) {
+        element.thisInfoBannerOn = true;
+        // switching every other banner off
+        particlesArray.forEach(element2 => {
+          if (element.index !== element2.index) {
+            element2.thisInfoBannerOn = false;
+          }
+        })
+      } else {
+        particlesArray.forEach(element2 => {
+          element.thisInfoBannerOn = false;
+        })
+      }
+    })
+    // activating the forward arrow
+    if (p.dist((canvasWidth - 59) * transformer,
+      (canvasHeight - 30) * transformer, p.mouseX, p.mouseY) < 22 * transformer && step < 20) {
+      step++
+    }
+    // activating the backward arrow
+    if (p.dist(59 * transformer,
+      (canvasHeight - 30) * transformer, p.mouseX, p.mouseY) < 22 * transformer && step > 0) {
+      step--
+    }
+  }
 
   p.draw = () => {
 
@@ -483,7 +511,8 @@ var main = (p) => {
           if (element.CForFF === "CF") { createBall(element, p) }
         })
 
-        textDisplayer("First we'll get you in the middle,", p)
+
+        textDisplayer("First we'll get you in the middle,", "", p)
         drawBackwardArrow(p);
         drawForwardArrow(p);
         break;
@@ -539,7 +568,7 @@ var main = (p) => {
 
         // BALLS CF
         particlesArray.forEach(element => {
-          if (element.CForFF === "CF") { createBall(element) }
+          if (element.CForFF === "CF") { createBall(element, p) }
         })
 
         textDisplayer("In We-Guild you also connect to your friends'", "friends, whom we'll call your far friends.", p)
@@ -711,7 +740,7 @@ var main = (p) => {
         // INFO BANNERS bring on the info banners
         particlesArray.forEach(element => {
           if (element.thisInfoBannerOn) {
-            drawInfoBanner(element.index, 20, 20, p)
+            drawInfoBanner(element.index, p)
           }
         })
 
@@ -740,7 +769,7 @@ var main = (p) => {
         // INFO BANNERS bring on the info banners
         particlesArray.forEach(element => {
           if (element.thisInfoBannerOn) {
-            drawInfoBanner(element.index, 20, 20, p)
+            drawInfoBanner(element.index, p)
           }
         })
 
@@ -824,7 +853,7 @@ var main = (p) => {
         particlesArray[4].colourB = 0;
         message(0, "sos!", p);
 
-        textDisplayer("Now it's you who needs help, remember?", p)
+        textDisplayer("Now it's you who needs help, remember?", "", p)
         drawBackwardArrow(p);
         drawForwardArrow(p);
         break;
@@ -937,7 +966,7 @@ var main = (p) => {
         // INFO BANNERS bring on the info banners
         particlesArray.forEach(element => {
           if (element.thisInfoBannerOn) {
-            drawInfoBanner(element.index, 20, 20, p)
+            drawInfoBanner(element.index, p)
           }
         })
         textDisplayer("And close and far friends", "help you if they can.", p)
@@ -959,7 +988,7 @@ var main = (p) => {
         // INFO BANNERS bring on the info banners
         particlesArray.forEach(element => {
           if (element.thisInfoBannerOn) {
-            drawInfoBanner(element.index, 20, 20, p)
+            drawInfoBanner(element.index, p)
           }
         })
         textDisplayer("Click on them and check what everybody's", "info-banners look like now.", p)
@@ -981,7 +1010,7 @@ var main = (p) => {
         // INFO BANNERS bring on the info banners
         particlesArray.forEach(element => {
           if (element.thisInfoBannerOn) {
-            drawInfoBanner(element.index, 20, 20, p)
+            drawInfoBanner(element.index, p)
           }
         })
         textDisplayer("And clicking on yourself shows your", "info-banner with the whole network. Try!", p)
@@ -1059,7 +1088,7 @@ var main = (p) => {
         // INFO BANNERS bring on the info banners
         particlesArray.forEach(element => {
           if (element.thisInfoBannerOn) {
-            drawInfoBanner(element.index, 20, 20, p)
+            drawInfoBanner(element.index, p)
           }
         })
         textDisplayer("As more help exchanges happen your", "network will change colours accordingly.", p)
@@ -1134,7 +1163,7 @@ var main = (p) => {
         // INFO BANNERS bring on the info banners
         particlesArray.forEach(element => {
           if (element.thisInfoBannerOn) {
-            drawInfoBanner(element.index, 20, 20, p)
+            drawInfoBanner(element.index, p)
           }
         })
         textDisplayer("Like you helping out more close and far", "friends when they need it and you can.", p)
@@ -1157,7 +1186,7 @@ var main = (p) => {
         // INFO BANNERS bring on the info banners
         particlesArray.forEach(element => {
           if (element.thisInfoBannerOn) {
-            drawInfoBanner(element.index, 20, 20, p)
+            drawInfoBanner(element.index, p)
           }
         })
 
@@ -1178,7 +1207,7 @@ var main = (p) => {
         // INFO BANNERS bring on the info banners
         particlesArray.forEach(element => {
           if (element.thisInfoBannerOn) {
-            drawInfoBanner(element.index, 20, 20, p)
+            drawInfoBanner(element.index, p)
           }
         })
 
@@ -1192,7 +1221,7 @@ var main = (p) => {
         p.textSize(20 * transformer)
         p.textAlign(p.CENTER);
 
-        t.text("And now that you know how it works...", canvasWidth * 0.5 * transformer, (canvasHeight * 0.5 - 40) * transformer)
+        p.text("And now that you know how it works...", canvasWidth * 0.5 * transformer, (canvasHeight * 0.5 - 40) * transformer)
 
         p.fill(0, finalBannerAlpha)
         p.textSize(25 * transformer)
@@ -1422,9 +1451,9 @@ function drawInfoBanner(friendIndex, p) {
 
   // COLOUR BAR
   // green to turquoise
-  for (let i = 0; i < int(35 * bannerTransformer); i++) {
+  for (let i = 0; i < p.int(35 * bannerTransformer); i++) {
     p.stroke(0, 180,
-      int(map(i, 0, int(35 * bannerTransformer), 0, 180)), 150);
+      p.int(p.map(i, 0, p.int(35 * bannerTransformer), 0, 180)), 150);
     p.line(
       particlesArray[friendIndex].xMoving + xBorderShifter - 34 * bannerTransformer + i,
       particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 18 * bannerTransformer,
@@ -1432,10 +1461,10 @@ function drawInfoBanner(friendIndex, p) {
       particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 15 * bannerTransformer);
   }
   // turquoise to blue
-  for (let i = 0; i < int(35 * bannerTransformer); i++) {
+  for (let i = 0; i < p.int(35 * bannerTransformer); i++) {
     p.stroke(
       0,
-      int(map(i, 0, int(35 * bannerTransformer), 180, 50)), 180, 150);
+      p.int(p.map(i, 0, p.int(35 * bannerTransformer), 180, 50)), 180, 150);
     p.line(
       particlesArray[friendIndex].xMoving + xBorderShifter + bannerTransformer + i,
       particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 18 * bannerTransformer,
@@ -1531,10 +1560,10 @@ function drawInfoBanner(friendIndex, p) {
 
   // FADER - number
   // display the gauge number
-  if (mouseX > particlesArray[friendIndex].xMoving + xBorderShifter - 30 * bannerTransformer &&
-    mouseX < particlesArray[friendIndex].xMoving + xBorderShifter + 30 * bannerTransformer &&
-    mouseY > particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 22 * bannerTransformer &&
-    mouseY < particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 15 * bannerTransformer
+  if (p.mouseX > particlesArray[friendIndex].xMoving + xBorderShifter - 30 * bannerTransformer &&
+    p.mouseX < particlesArray[friendIndex].xMoving + xBorderShifter + 30 * bannerTransformer &&
+    p.mouseY > particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 22 * bannerTransformer &&
+    p.mouseY < particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 15 * bannerTransformer
   ) {
     // and the rectangle background for the balance number
     p.fill(particlesArray[friendIndex].colourR, particlesArray[friendIndex].colourG, particlesArray[friendIndex].colourB);
@@ -1557,13 +1586,13 @@ function drawInfoBanner(friendIndex, p) {
       );
     } else if (particlesArray[friendIndex].givenTo > particlesArray[friendIndex].receivedFrom) {
       p.text(
-        "£" + int(particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom) + ">",
+        "£" + p.int(particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom) + ">",
         particlesArray[friendIndex].xMoving + xBorderShifter + (particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom) / (particlesArray[friendIndex].givenTo + particlesArray[friendIndex].receivedFrom) * 28 * bannerTransformer,
         particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 23 * bannerTransformer
       );
     } else if (particlesArray[friendIndex].givenTo < particlesArray[friendIndex].receivedFrom) {
       p.text(
-        "<£" + -(int(particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom)),
+        "<£" + -(p.int(particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom)),
         particlesArray[friendIndex].xMoving + xBorderShifter + (particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom) / (particlesArray[friendIndex].givenTo + particlesArray[friendIndex].receivedFrom) * 28 * bannerTransformer,
         particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 23 * bannerTransformer
       );
@@ -1594,7 +1623,7 @@ function drawInfoBannerIfHovered(CForFF, p) {
             particlesArray[0].yMoving,
             24 * transformer, 24 * transformer);
         }
-        drawInfoBanner(element.index, 10, 10, p);
+        drawInfoBanner(element.index, p);
       }
     }
   })
@@ -1684,33 +1713,7 @@ function textDisplayer(firstLineToShow, secondLineToShow, p) {
 }
 // -=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=-
 // -=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=-
-function mouseClicked(p) {
-  particlesArray.forEach(element => {
-    if (p.dist(p.mouseX, p.mouseY, element.xMoving, element.yMoving) < sizeOfBalls * element.ballSize * transformer) {
-      element.thisInfoBannerOn = true;
-      // switching every other banner off
-      particlesArray.forEach(element2 => {
-        if (element.index !== element2.index) {
-          element2.thisInfoBannerOn = false;
-        }
-      })
-    } else {
-      particlesArray.forEach(element2 => {
-        element.thisInfoBannerOn = false;
-      })
-    }
-  })
-  // activating the forward arrow
-  if (p.dist((canvasWidth - 59) * transformer,
-    (canvasHeight - 30) * transformer, p.mouseX, p.mouseY) < 22 * transformer && step < 20) {
-    step++
-  }
-  // activating the backward arrow
-  if (p.dist(59 * transformer,
-    (canvasHeight - 30) * transformer, p.mouseX, p.mouseY) < 22 * transformer && step > 0) {
-    step--
-  }
-}
+
 // -=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=-
 // -=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=-
 function drawForwardArrow(p) {

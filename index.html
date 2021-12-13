@@ -45,12 +45,34 @@
     <script>
         const homeLinks = ['3 sizes', 'Button - TURQUOISE', 'Homepage - timeline DESKTOP', 'loading bar - DESKTOP', 'subscribe',
             'Button - BLUE', 'Homepage - network DESKTOP', 'Homepage - timeline MOBILE', 'loading bar - MOBILE',
-            'Button - GREEN', 'Homepage - network MOBILE', 'HOW IT WORKS', 'small wobbly network']
+            'Button - GREEN', 'Homepage - network MOBILE', 'small wobbly network']
 
         homeLinks.map((link) => {
             let elem = document.createElement("a")
             elem.id = link
             elem.innerHTML = `<a href="home/${link}"" style="display: block;"  >${link}</a>`
+            document.body.appendChild(elem)
+        })
+
+        const howLinks = ['1 - horizontal 6 network _ add friends',
+            '1 - horizontal 6 network _ add friends - BIG',
+            '2 - horizontal 6 network _ network',
+            '2 - horizontal 6 network _ network - BIG',
+            '3 - horizontal 6 network _ help request - Friend',
+            '3 - horizontal 6 network _ help request - Friend - BIG',
+            '4 - horizontal 6 network _ £ to friend - (blue)',
+            '4 - horizontal 6 network _ £ to friend - (blue) - BIG',
+            '5 - horizontal 6 network _ help request - YOU',
+            '5 - horizontal 6 network _ help request - YOU - BIG',
+            '6 - horizontal 6 network _ gift money - TO YOU GREEN',
+            '6 - horizontal 6 network _ gift money - TO YOU GREEN - BIG',
+            '7 - horizontal 6 network _ most in GREEN (after they help you)',
+            '7 - horizontal 6 network _ most in GREEN (after they help you) - BIG']
+
+        howLinks.map((link) => {
+            let elem = document.createElement("a")
+            elem.id = link
+            elem.innerHTML = `<a href="home/${'HOW IT WORKS'}/${link}"" style="display: block;"  >${link}</a>`
             document.body.appendChild(elem)
         })
 
@@ -74,10 +96,15 @@
 
     <h3>Team links</h3>
     <script>
-        let elem = document.createElement("a")
-        elem.id = 'TEAM'
-        elem.innerHTML = `<a href="team/TEAM"" style="display: block;"  >TEAM</a>`
-        document.body.appendChild(elem)
+
+        const teamLinks = ['TEAM', 'TEAM - BIG']
+
+        teamLinks.map((link) => {
+            let elem = document.createElement("a")
+            elem.id = link
+            elem.innerHTML = `<a href="team/${link}"" style="display: block;"  >${link}</a>`
+            document.body.appendChild(elem)
+        })
 
 
     </script>

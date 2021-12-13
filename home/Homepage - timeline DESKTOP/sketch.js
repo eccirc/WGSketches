@@ -76,7 +76,7 @@ var main = (p) => {
     parsingPrivateLedger(signUpWhen, privateLedgers, p);
     p.frameRate(60)
     cnv = p.createCanvas(width * transformer, height * transformer);
-    cnv.doubleClicked(() => doubleClicking(p));
+    cnv.doubleClicked(() => p.doubleClicking());
 
 
 
@@ -707,6 +707,102 @@ var main = (p) => {
     }
   }
 
+
+  p.doubleClicking = () => {
+
+    let clickedOnAtransaction = false;
+    for (let i = 0; i < arrayOfTransactions.length; i++) {
+
+      if (width < height) {
+        if (p.dist(
+          p.mouseX,
+          p.mouseY,
+          (arrayOfTransactions[i].x + (Yorigin - arrayOfTransactions[i].y) * Xdistorter) * transformer,
+          (p.map(
+            arrayOfTransactions[i].x - graphSideMargin,
+            0,
+            width - graphSideMargin * 2,
+            Yorigin + p.map(0, 0, width - 2 * graphSideMargin, 0, Ydistorter),
+            Yorigin + Ydistorter
+          )) * transformer) < 10) {
+          clickedOnAtransaction = true;
+          zoomLoc = arrayOfTransactions[i].x
+          zoomAmount += 0.1;
+
+          for (let j = 0; j < arrayOfTransactions.length; j++) {
+            arrayOfTransactions[j].xTrans =
+              arrayOfTransactions[j].x - ((zoomLoc - arrayOfTransactions[j].x) * zoomAmount * 0.4);
+          }
+        }
+      } else
+      // DESKTOP MODE
+      {
+        if (p.dist(
+          p.mouseX,
+          p.mouseY,
+          (arrayOfTransactions[i].x + (Yorigin - arrayOfTransactions[i].y) * Xdistorter) * transformer,
+          arrayOfTransactions[i].y2 * transformer) < 10 * transformer) {
+
+          clickedOnAtransaction = true;
+          zoomLoc = arrayOfTransactions[i].x
+          zoomAmount += 0.1;
+
+          for (let j = 0; j < arrayOfTransactions.length; j++) {
+            arrayOfTransactions[j].xTrans =
+              arrayOfTransactions[j].x - ((zoomLoc - arrayOfTransactions[j].x) * zoomAmount * 0.4);
+          }
+        }
+      }
+      // resetting the values by double-clicking anywhere else
+      if (i === arrayOfTransactions.length - 1 && !clickedOnAtransaction) {
+        // console.log('here')
+        zoomAmount = 1;
+        sideShifter = -150;
+        finalYshifter = 0;
+        // if (width < height) { maxBalanceAdjuster = 1.3 }
+        // else { maxBalanceAdjuster = 1.3; }
+
+        for (let i = 0; i < arrayOfTransactions.length; i++) {
+          arrayOfTransactions[i].xTrans =
+            sideShifter +
+            zoomLoc +
+            (arrayOfTransactions[i].x0 + graphSideMargin - zoomLoc) *
+            zoomAmount;
+        }
+      }
+    }
+  }
+  // -----------------------------------------------------------------------------
+  p.mousePressed = () => {
+
+    if (specificInfoBannerOn && p.dist(p.mouseX, p.mouseY, (width - 187) * transformer * bannerTransformer, 94.5 * transformer) > 100 * transformer) {
+      specificInfoBannerOn = false;
+      arrayOfTransactions.forEach((element) => {
+        element.particlePulserEnhancer = 1;
+      });
+    }
+
+    if (specificInfoBanner && p.dist(p.mouseX, p.mouseY, (width - 187) * transformer * bannerTransformer, 94.5 * transformer) < 100 * transformer) {
+
+      timeLedgerUserIDnetworkLedger = arrayOfTransactions[specificInfoBanner].fromLedger;
+    }
+
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+
+  p.mouseWheel = (event) => {
+    verticalScroll = event.delta;
+
+    if (zoomAmount > 1)
+
+      for (let i = 0; i < arrayOfTransactions.length; i++) {
+        arrayOfTransactions[i].xTrans += verticalScroll * zoomAmount * 0.5;
+      }
+  };
+
+
+
   //  // FUNCTION KEY PRESSED ==========================
   //   function keyPressed () {
   //     // widen
@@ -738,98 +834,7 @@ var main = (p) => {
   //     }
 }
 
-function doubleClicking(p) {
 
-  let clickedOnAtransaction = false;
-  for (let i = 0; i < arrayOfTransactions.length; i++) {
-
-    if (width < height) {
-      if (p.dist(
-        p.mouseX,
-        p.mouseY,
-        (arrayOfTransactions[i].x + (Yorigin - arrayOfTransactions[i].y) * Xdistorter) * transformer,
-        (p.map(
-          arrayOfTransactions[i].x - graphSideMargin,
-          0,
-          width - graphSideMargin * 2,
-          Yorigin + p.map(0, 0, width - 2 * graphSideMargin, 0, Ydistorter),
-          Yorigin + Ydistorter
-        )) * transformer) < 10) {
-        clickedOnAtransaction = true;
-        zoomLoc = arrayOfTransactions[i].x
-        zoomAmount += 0.1;
-
-        for (let j = 0; j < arrayOfTransactions.length; j++) {
-          arrayOfTransactions[j].xTrans =
-            arrayOfTransactions[j].x - ((zoomLoc - arrayOfTransactions[j].x) * zoomAmount * 0.4);
-        }
-      }
-    } else
-    // DESKTOP MODE
-    {
-      if (p.dist(
-        p.mouseX,
-        p.mouseY,
-        (arrayOfTransactions[i].x + (Yorigin - arrayOfTransactions[i].y) * Xdistorter) * transformer,
-        arrayOfTransactions[i].y2 * transformer) < 10 * transformer) {
-
-        clickedOnAtransaction = true;
-        zoomLoc = arrayOfTransactions[i].x
-        zoomAmount += 0.1;
-
-        for (let j = 0; j < arrayOfTransactions.length; j++) {
-          arrayOfTransactions[j].xTrans =
-            arrayOfTransactions[j].x - ((zoomLoc - arrayOfTransactions[j].x) * zoomAmount * 0.4);
-        }
-      }
-    }
-    // resetting the values by double-clicking anywhere else
-    if (i === arrayOfTransactions.length - 1 && !clickedOnAtransaction) {
-      // console.log('here')
-      zoomAmount = 1;
-      sideShifter = -150;
-      finalYshifter = 0;
-      // if (width < height) { maxBalanceAdjuster = 1.3 }
-      // else { maxBalanceAdjuster = 1.3; }
-
-      for (let i = 0; i < arrayOfTransactions.length; i++) {
-        arrayOfTransactions[i].xTrans =
-          sideShifter +
-          zoomLoc +
-          (arrayOfTransactions[i].x0 + graphSideMargin - zoomLoc) *
-          zoomAmount;
-      }
-    }
-  }
-}
-// -----------------------------------------------------------------------------
-function mousePressed(p) {
-
-  if (specificInfoBannerOn && p.dist(p.mouseX, p.mouseY, (width - 187) * transformer * bannerTransformer, 94.5 * transformer) > 100 * transformer) {
-    specificInfoBannerOn = false;
-    arrayOfTransactions.forEach((element) => {
-      element.particlePulserEnhancer = 1;
-    });
-  }
-
-  if (specificInfoBanner && p.dist(p.mouseX, p.mouseY, (width - 187) * transformer * bannerTransformer, 94.5 * transformer) < 100 * transformer) {
-
-    timeLedgerUserIDnetworkLedger = arrayOfTransactions[specificInfoBanner].fromLedger;
-  }
-
-}
-
-// -----------------------------------------------------------------------------------------------------
-
-function mouseWheel(event) {
-  verticalScroll = event.delta;
-
-  if (zoomAmount > 1)
-
-    for (let i = 0; i < arrayOfTransactions.length; i++) {
-      arrayOfTransactions[i].xTrans += verticalScroll * zoomAmount * 0.5;
-    }
-};
 // -----------------------------------------------------------------------------------------------------
 
 

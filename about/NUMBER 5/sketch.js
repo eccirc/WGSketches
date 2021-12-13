@@ -12,8 +12,8 @@ const particlesArray = [
     pulsing: 4,
     xPulser: 0,
     yPulser: 0,
-    colourG: 180,
-    colourB: 90
+    colourG: 135,
+    colourB: 180
   }
 ]
 

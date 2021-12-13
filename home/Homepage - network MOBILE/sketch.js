@@ -64,7 +64,6 @@ let carrierFive = false;
 let carrierG = 0;
 let carrierB = 0;
 
-
 // array  of particle objects
 const particlesArray = [
   {
@@ -795,6 +794,42 @@ var main = (p) => {
 
   }
 
+  p.mouseClicked = () => {
+    particlesArray.forEach(element => {
+      if (p.dist(p.mouseX, p.mouseY, element.xMoving, element.yMoving) < sizeOfBalls * element.ballSize * transformer) {
+        element.thisInfoBannerOn = true;
+        // switching every other banner off
+        particlesArray.forEach(element2 => {
+          if (element.index !== element2.index) {
+            element2.thisInfoBannerOn = false;
+          }
+        })
+      } else {
+        particlesArray.forEach(element2 => {
+          element.thisInfoBannerOn = false;
+        })
+      }
+    })
+
+    // layer button stuff
+    if (layerButtonSwitch) {
+      // activate lines
+      if (p.dist(p.mouseX, p.mouseY, 40 * transformer, 150 * transformer) < 20 * transformer && linesOn) { linesOn = false }
+      else if (p.dist(p.mouseX, p.mouseY, 40 * transformer, 150 * transformer) < 20 * transformer && !linesOn) { linesOn = true }
+
+      // activate pics
+      if (p.dist(p.mouseX, p.mouseY, 95 * transformer, 150 * transformer) < 20 * transformer && picsOn) { picsOn = false }
+      else if (p.dist(p.mouseX, p.mouseY, 95 * transformer, 150 * transformer) < 20 * transformer && !picsOn) { picsOn = true }
+      // deactivate by clicking outside
+      else if (p.dist(p.mouseX, p.mouseY, 40 * transformer, 150 * transformer) > 50 * transformer && layerButtonSwitch) { layerButtonSwitch = false }
+    }
+    // switch it on
+    else if (!layerButtonSwitch) {
+      if (p.dist(p.mouseX, p.mouseY, 40 * transformer, 140 * transformer) < 20 * transformer && !layerButtonSwitch) { layerButtonSwitch = true }
+    }
+  }
+
+
   p.setup = () => {
     p.frameRate(60)
     p.createCanvas(widthForSetup, heightForSetup);
@@ -916,13 +951,20 @@ var main = (p) => {
     // INFO BANNERS bring on the info banners
     particlesArray.forEach(element => {
       if (element.thisInfoBannerOn) {
-        drawInfoBanner(element.index, 20, 20, p)
+        drawInfoBanner(element.index, p)
       }
     })
 
   }
 
+
+
 }
+
+
+
+
+
 // -=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=-
 function drawLayerSwitch(p) {
   p.fill(0, 140)
@@ -1232,9 +1274,9 @@ function drawInfoBanner(friendIndex, p) {
 
   // COLOUR BAR
   // green to turquoise
-  for (let i = 0; i < int(35 * bannerTransformer); i++) {
+  for (let i = 0; i < p.int(35 * bannerTransformer); i++) {
     p.stroke(0, 180,
-      int(p.map(i, 0, int(35 * bannerTransformer), 0, 180)), 150);
+      p.int(p.map(i, 0, p.int(35 * bannerTransformer), 0, 180)), 150);
     p.line(
       particlesArray[friendIndex].xMoving + xBorderShifter - 34 * bannerTransformer + i,
       particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 18 * bannerTransformer,
@@ -1242,10 +1284,10 @@ function drawInfoBanner(friendIndex, p) {
       particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 15 * bannerTransformer);
   }
   // turquoise to blue
-  for (let i = 0; i < int(35 * bannerTransformer); i++) {
+  for (let i = 0; i < p.int(35 * bannerTransformer); i++) {
     p.stroke(
       0,
-      int(map(i, 0, int(35 * bannerTransformer), 180, 50)), 180, 150);
+      p.int(p.map(i, 0, p.int(35 * bannerTransformer), 180, 50)), 180, 150);
     p.line(
       particlesArray[friendIndex].xMoving + xBorderShifter + bannerTransformer + i,
       particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 18 * bannerTransformer,
@@ -1343,10 +1385,10 @@ function drawInfoBanner(friendIndex, p) {
 
   // FADER - number
   // display the gauge number
-  if (mouseX > particlesArray[friendIndex].xMoving + xBorderShifter - 30 * bannerTransformer &&
-    mouseX < particlesArray[friendIndex].xMoving + xBorderShifter + 30 * bannerTransformer &&
-    mouseY > particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 22 * bannerTransformer &&
-    mouseY < particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 15 * bannerTransformer
+  if (p.mouseX > particlesArray[friendIndex].xMoving + xBorderShifter - 30 * bannerTransformer &&
+    p.mouseX < particlesArray[friendIndex].xMoving + xBorderShifter + 30 * bannerTransformer &&
+    p.mouseY > particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 22 * bannerTransformer &&
+    p.mouseY < particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 15 * bannerTransformer
   ) {
     // and the rectangle background for the balance number
     p.fill(particlesArray[friendIndex].colourR, particlesArray[friendIndex].colourG, particlesArray[friendIndex].colourB);
@@ -1369,13 +1411,13 @@ function drawInfoBanner(friendIndex, p) {
       );
     } else if (particlesArray[friendIndex].givenTo > particlesArray[friendIndex].receivedFrom) {
       p.text(
-        "£" + int(particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom) + ">",
+        "£" + p.int(particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom) + ">",
         particlesArray[friendIndex].xMoving + xBorderShifter + (particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom) / (particlesArray[friendIndex].givenTo + particlesArray[friendIndex].receivedFrom) * 28 * bannerTransformer,
         particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 23 * bannerTransformer
       );
     } else if (particlesArray[friendIndex].givenTo < particlesArray[friendIndex].receivedFrom) {
       p.text(
-        "<£" + -(int(particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom)),
+        "<£" + -(p.int(particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom)),
         particlesArray[friendIndex].xMoving + xBorderShifter + (particlesArray[friendIndex].givenTo - particlesArray[friendIndex].receivedFrom) / (particlesArray[friendIndex].givenTo + particlesArray[friendIndex].receivedFrom) * 28 * bannerTransformer,
         particlesArray[friendIndex].yMoving + yBorderShifter + verticalBannerShifter - 23 * bannerTransformer
       );
@@ -1405,7 +1447,7 @@ function drawInfoBannerIfHovered(CForFF, p) {
             particlesArray[0].yMoving,
             24 * transformer, 24 * transformer);
         }
-        drawInfoBanner(element.index, 10, 10, p);
+        drawInfoBanner(element.index, p);
       }
     }
   })
@@ -1536,39 +1578,6 @@ function linkFFtoFF(p) {
   p.noStroke()
 }
 // -=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=-
-function mouseClicked(p) {
-  particlesArray.forEach(element => {
-    if (p.dist(p.mouseX, p.mouseY, element.xMoving, element.yMoving) < sizeOfBalls * element.ballSize * transformer) {
-      element.thisInfoBannerOn = true;
-      // switching every other banner off
-      particlesArray.forEach(element2 => {
-        if (element.index !== element2.index) {
-          element2.thisInfoBannerOn = false;
-        }
-      })
-    } else {
-      particlesArray.forEach(element2 => {
-        element.thisInfoBannerOn = false;
-      })
-    }
-  })
 
-  // layer button stuff
-  if (layerButtonSwitch) {
-    // activate lines
-    if (p.dist(p.mouseX, p.mouseY, 40 * transformer, 150 * transformer) < 20 * transformer && linesOn) { linesOn = false }
-    else if (p.dist(p.mouseX, p.mouseY, 40 * transformer, 150 * transformer) < 20 * transformer && !linesOn) { linesOn = true }
-
-    // activate pics
-    if (p.dist(p.mouseX, p.mouseY, 95 * transformer, 150 * transformer) < 20 * transformer && picsOn) { picsOn = false }
-    else if (p.dist(p.mouseX, p.mouseY, 95 * transformer, 150 * transformer) < 20 * transformer && !picsOn) { picsOn = true }
-    // deactivate by clicking outside
-    else if (p.dist(p.mouseX, p.mouseY, 40 * transformer, 150 * transformer) > 50 * transformer && layerButtonSwitch) { layerButtonSwitch = false }
-  }
-  // switch it on
-  else if (!layerButtonSwitch) {
-    if (p.dist(p.mouseX, p.mouseY, 40 * transformer, 140 * transformer) < 20 * transformer && !layerButtonSwitch) { layerButtonSwitch = true }
-  }
-}
 
 var myp5 = new p5(main, 'c1');

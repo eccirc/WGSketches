@@ -13,7 +13,7 @@ const particlesArray = [
     xPulser: 0,
     yPulser: 0,
     colourG: 180,
-    colourB: 90
+    colourB: 180
   }
 ]
 
