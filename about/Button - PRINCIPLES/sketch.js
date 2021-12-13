@@ -16,7 +16,6 @@ const particlesArray = [
   }
 ]
 
-
 var main = (p) => {
 
   p.preload = () => {
@@ -34,7 +33,6 @@ var main = (p) => {
 
     p.clear()
     p.background(0, 0)
-    // background (100, 100, 100)
 
     p.noStroke();
     // BALLS
@@ -51,7 +49,7 @@ function pulsing(p) {
     // X pulsin
     element.xMoving = (element.x + p.cos(p.frameCount * 0.01 * element.pulsing) * sizeOfMovement) * transformer;
     // Y pulsing
-    element.yMoving = (element.y + p.sin(p.rameCount * 0.01 * element.pulsing) * sizeOfMovement) * transformer;
+    element.yMoving = (element.y + p.sin(p.frameCount * 0.01 * element.pulsing) * sizeOfMovement) * transformer;
   })
 }
 
