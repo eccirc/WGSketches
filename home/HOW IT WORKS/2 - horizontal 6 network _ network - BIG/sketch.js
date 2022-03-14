@@ -1,31 +1,3 @@
-2 - horizontal 6 network _ network - BIG.js
-Who has access
-G
-D
-M
-Z
-H
-S
-System properties
-Type
-Javascript
-Size
-5 KB
-Storage used
-5 KBOwned by We-Guild
-Location
-HOW IT WORKS - FINAL!
-Owner
-Guillermo Justel
-Modified
-Jan 10, 2022 by Guillermo Justel
-Opened
-5:27 PM by me
-Created
-Jan 10, 2022
-Add a description
-Viewers can download
-
 const transformer = 0.75;
 const sizeOfBalls = 45;
 const sideShifter = -40;
