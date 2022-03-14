@@ -118,7 +118,7 @@ var main = (p) => {
     p.textSize(60 * transformer)
     // stroke (100, 30, 0, 140);
     p.textFont(amaticFont);
-    p.text("YOU", particlesArray[2].xMoving - 15, particlesArray[2].yMoving + 32)
+    p.text ("YOU", particlesArray[2].xMoving, particlesArray[2].yMoving + 50);
     // line
     // strokeWeight(4)
     // line (particlesArray[2].xMoving, particlesArray[2].yMoving + 20, particlesArray[2].xMoving, particlesArray[2].yMoving + 8)
