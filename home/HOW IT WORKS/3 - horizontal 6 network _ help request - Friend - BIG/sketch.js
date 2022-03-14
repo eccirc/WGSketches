@@ -143,7 +143,7 @@ var main = (p) => {
     p.textSize(60 * transformer)
     // stroke (100, 30, 0, 140);
     p.textFont(amaticFont);
-    p.text("YOU", particlesArray[2].xMoving - 15, particlesArray[2].yMoving + 32)
+    p.text ("YOU", particlesArray[2].xMoving, particlesArray[2].yMoving + 50);
     // line
     // strokeWeight(4)
     // line (particlesArray[2].xMoving, particlesArray[2].yMoving + 20, particlesArray[2].xMoving, particlesArray[2].yMoving + 8)
@@ -203,9 +203,16 @@ function helpRequestMessage(friendRequestingNumber, p) {
   p.fill(255, 255, 255);
   p.stroke(20, 20, 20)
   p.strokeWeight(1);
-  p.ellipse(particlesArray[friendRequestingNumber].xMoving + 33, particlesArray[friendRequestingNumber].yMoving - 18, 60, 40)
-  p.fill(30, 0, 0)
+//   p.ellipse(particlesArray[friendRequestingNumber].xMoving + 33, particlesArray[friendRequestingNumber].yMoving - 18, 60, 40)
+//   p.fill(30, 0, 0)
+//   p.noStroke();
+//   p.text("help!", particlesArray[friendRequestingNumber].xMoving + 10, particlesArray[friendRequestingNumber].yMoving - 8)
+// }
+  p.ellipse (particlesArray[friendRequestingNumber].xMoving + 63 * transformer, particlesArray[friendRequestingNumber].yMoving - 32 * transformer, 120 * transformer, 80 * transformer)
+  p.fill (30, 0, 0)
   p.noStroke();
-  p.text("help!", particlesArray[friendRequestingNumber].xMoving + 10, particlesArray[friendRequestingNumber].yMoving - 8)
+  p.textAlign(p.CENTER);
+  p.text ("help!", particlesArray[friendRequestingNumber].xMoving + 65 * transformer, particlesArray[friendRequestingNumber].yMoving - 13 * transformer);
 }
+
 var myp5 = new p5(main, 'c1');
