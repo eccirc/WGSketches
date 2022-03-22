@@ -163,3 +163,5 @@ function createBall(ballObject, p){
   
   
 }
+
+var myp5 = new p5(main, 'c1');
